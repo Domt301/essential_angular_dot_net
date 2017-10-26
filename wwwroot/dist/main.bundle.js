@@ -53,7 +53,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'Angular & ASP.NET Core MVC';
+        this.title = 'Now in .Net 2.0';
         //title = no_such_object;
     }
     return AppComponent;

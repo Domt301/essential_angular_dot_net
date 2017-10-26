@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = 'Angular & ASP.NET Core MVC';
+    title = 'Now in .Net 2.0';
 
     //title = no_such_object;
 }

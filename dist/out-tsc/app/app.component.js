@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'Angular & ASP.NET Core MVC';
+        this.title = 'Now in .Net 2.0';
         //title = no_such_object;
     }
     return AppComponent;
