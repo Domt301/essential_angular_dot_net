@@ -78,13 +78,13 @@ module.exports = {
   },
   "entry": {
     "main": [
-      "./ClientApp\\boot.ts"
+      "./ClientApp/boot.ts"
     ],
     "polyfills": [
-      "./ClientApp\\polyfills.ts"
+      "./ClientApp/polyfills.ts"
     ],
     "styles": [
-        "./ClientApp\\styles.css",
+        "./ClientApp/styles.css",
         "./wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
     ]
   },
@@ -118,7 +118,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.css$/,
         "use": [
@@ -141,7 +141,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -172,7 +172,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.less$/,
         "use": [
@@ -201,7 +201,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.styl$/,
         "use": [
@@ -231,7 +231,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.css$/,
         "use": [
@@ -254,7 +254,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -285,7 +285,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.less$/,
         "use": [
@@ -314,7 +314,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "ClientApp\\styles.css")
+          path.join(process.cwd(), "ClientApp/styles.css")
         ],
         "test": /\.styl$/,
         "use": [
@@ -368,7 +368,7 @@ module.exports = {
     }),
     new NamedLazyChunksWebpackPlugin(),
     new HtmlWebpackPlugin({
-      "template": "./ClientApp\\index.html",
+      "template": "./ClientApp/index.html",
       "filename": "./index.html",
       "hash": false,
       "inject": true,
