@@ -9,22 +9,28 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using SportsStore.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace SportsStore {
+
     public class Startup {
+
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<DataContext>(options =>
-                    options.UseSqlServer(Configuration
-                        ["Data:Products:ConnectionString"]));
+                options.UseSqlServer(Configuration
+                    ["Data:Products:ConnectionString"]));
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(opts => {
+                opts.SerializerSettings.ReferenceLoopHandling   
+                    = ReferenceLoopHandling.Serialize;
+                opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
         }
 
         public void Configure(IApplicationBuilder app, 
