@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "./ClientApp/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <th>Category</th>\r\n        <th>Price</th>\r\n        <th>Supplier</th>\r\n        <th>Ratings</th>\r\n    </tr>\r\n    <tr *ngFor=\"let product of products\">\r\n        <td>{{product.name}}</td>\r\n        <td>{{product.category}}</td>\r\n        <td>{{product.price}}</td>\r\n        <td>{{product.supplier?.name || 'None'}}</td>\r\n        <td>{{product.ratings?.length || 0}}</td>\r\n    </tr>\r\n</table>"
+module.exports = "<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <th>Category</th>\r\n        <th>Price</th>\r\n        <th>Supplier</th>\r\n        <th>Ratings</th>\r\n    </tr>\r\n    <tr *ngFor=\"let product of products\">\r\n        <td>{{product.name}}</td>\r\n        <td>{{product.category}}</td>\r\n        <td>{{product.price}}</td>\r\n        <td>{{product.supplier?.name || 'None'}}</td>\r\n        <td>{{product.ratings?.length || 0}}</td>\r\n    </tr>\r\n</table>\r\n\r\n<button class=\"btn btn-primary m-1\" (click)=\"createProduct()\">\r\n    Create Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\"(click)=\"createProductAndSupplier()\">\r\n    Create Product And Supplier\r\n</button>\r\n<button class=\"btn btn-primary m-1\"(click)=\"replaceProduct()\">\r\n    Replace Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\"(click)=\"replaceSupplier()\">\r\n    Replace Supplier\r\n</button>\r\n<button class=\"btn btn-primary m-1\"(click)=\"updateProduct()\">\r\n    Update Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\"(click)=\"deleteProduct()\">\r\n    Delete Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\"(click)=\"deleteSupplier()\">\r\n    Delete Supplier\r\n</button>"
 
 /***/ }),
 
@@ -45,6 +45,8 @@ module.exports = "<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_product_model__ = __webpack_require__("./ClientApp/app/models/product.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_supplier_model__ = __webpack_require__("./ClientApp/app/models/supplier.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -54,6 +56,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 var AppComponent = (function () {
@@ -74,6 +78,36 @@ var AppComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    AppComponent.prototype.createProduct = function () {
+        this.repo.createProduct(new __WEBPACK_IMPORTED_MODULE_2__models_product_model__["a" /* Product */](0, "X-Ray Scuba Mask", "Watersports", "See what the fish are hiding", 49.99, this.repo.products[0].supplier));
+    };
+    AppComponent.prototype.createProductAndSupplier = function () {
+        var s = new __WEBPACK_IMPORTED_MODULE_3__models_supplier_model__["a" /* Supplier */](0, "Rocket Shoe Corp", "Boston", "MA");
+        var p = new __WEBPACK_IMPORTED_MODULE_2__models_product_model__["a" /* Product */](0, "Rocket-Powered Shoes", "Running", "Set a new record", 100, s);
+        this.repo.createProductAndSupplier(p, s);
+    };
+    AppComponent.prototype.replaceProduct = function () {
+        var p = this.repo.products[0];
+        p.name = "Modified Product";
+        p.category = "Modified Category";
+        this.repo.replaceProduct(p);
+    };
+    AppComponent.prototype.replaceSupplier = function () {
+        var s = new __WEBPACK_IMPORTED_MODULE_3__models_supplier_model__["a" /* Supplier */](3, "Modified Supplier", "New York", "NY");
+        this.repo.replaceSupplier(s);
+    };
+    AppComponent.prototype.updateProduct = function () {
+        var changes = new Map();
+        changes.set("name", "Green Kayak");
+        changes.set("supplier", null);
+        this.repo.updateProduct(1, changes);
+    };
+    AppComponent.prototype.deleteProduct = function () {
+        this.repo.deleteProduct(1);
+    };
+    AppComponent.prototype.deleteSupplier = function () {
+        this.repo.deleteSupplier(2);
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
@@ -181,6 +215,28 @@ ModelModule = __decorate([
 
 /***/ }),
 
+/***/ "./ClientApp/app/models/product.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Product; });
+var Product = (function () {
+    function Product(productId, name, category, description, price, supplier, ratings) {
+        this.productId = productId;
+        this.name = name;
+        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.supplier = supplier;
+        this.ratings = ratings;
+    }
+    return Product;
+}());
+
+//# sourceMappingURL=product.model.js.map
+
+/***/ }),
+
 /***/ "./ClientApp/app/models/repository.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -205,11 +261,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var productsUrl = "/api/products";
+var suppliersUrl = "/api/suppliers";
 var Repository = (function () {
     function Repository(http) {
         this.http = http;
         this.filterObject = new __WEBPACK_IMPORTED_MODULE_3__configClasses_repository__["a" /* Filter */]();
-        this.filter.category = "soccer";
+        this.suppliers = [];
+        //this.filter.category = "soccer";
         this.filter.related = true;
         this.getProducts();
     }
@@ -230,10 +288,90 @@ var Repository = (function () {
         this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url)
             .subscribe(function (response) { return _this.products = response; });
     };
+    Repository.prototype.getSuppliers = function () {
+        var _this = this;
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, suppliersUrl)
+            .subscribe(function (response) { return _this.suppliers = response; });
+    };
+    Repository.prototype.createProduct = function (prod) {
+        var _this = this;
+        var data = {
+            name: prod.name, category: prod.category,
+            description: prod.description, price: prod.price,
+            supplier: prod.supplier ? prod.supplier.supplierId : 0
+        };
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Post, productsUrl, data)
+            .subscribe(function (response) {
+            prod.productId = response;
+            _this.products.push(prod);
+        });
+    };
+    Repository.prototype.createProductAndSupplier = function (prod, supp) {
+        var _this = this;
+        var data = {
+            name: supp.name, city: supp.city, state: supp.state
+        };
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Post, suppliersUrl, data)
+            .subscribe(function (response) {
+            supp.supplierId = response;
+            prod.supplier = supp;
+            _this.suppliers.push(supp);
+            if (prod != null) {
+                _this.createProduct(prod);
+            }
+        });
+    };
+    Repository.prototype.replaceProduct = function (prod) {
+        var _this = this;
+        var data = {
+            name: prod.name, category: prod.category,
+            description: prod.description, price: prod.price,
+            supplier: prod.supplier ? prod.supplier.supplierId : 0
+        };
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Put, productsUrl + "/" + prod.productId, data)
+            .subscribe(function (response) { return _this.getProducts(); });
+    };
+    Repository.prototype.replaceSupplier = function (supp) {
+        var _this = this;
+        var data = {
+            name: supp.name, city: supp.city, state: supp.state
+        };
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Put, suppliersUrl + "/" + supp.supplierId, data)
+            .subscribe(function (response) { return _this.getProducts(); });
+    };
+    Repository.prototype.updateProduct = function (id, changes) {
+        var _this = this;
+        var patch = [];
+        changes.forEach(function (value, key) {
+            return patch.push({ op: "replace", path: key, value: value });
+        });
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Patch, productsUrl + "/" + id, patch)
+            .subscribe(function (response) { return _this.getProducts(); });
+    };
     Repository.prototype.sendRequest = function (verb, url, data) {
         return this.http.request(new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Request */]({
             method: verb, url: url, body: data
-        })).map(function (response) { return response.json(); });
+        })).map(function (response) {
+            try {
+                return response.json();
+            }
+            catch (e) {
+                return null;
+            }
+        });
+    };
+    Repository.prototype.deleteProduct = function (id) {
+        var _this = this;
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Delete, productsUrl + "/" + id)
+            .subscribe(function (response) { return _this.getProducts(); });
+    };
+    Repository.prototype.deleteSupplier = function (id) {
+        var _this = this;
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Delete, suppliersUrl + "/" + id)
+            .subscribe(function (response) {
+            _this.getProducts();
+            _this.getSuppliers();
+        });
     };
     Object.defineProperty(Repository.prototype, "filter", {
         get: function () {
@@ -251,6 +389,25 @@ Repository = __decorate([
 
 var _a;
 //# sourceMappingURL=repository.js.map
+
+/***/ }),
+
+/***/ "./ClientApp/app/models/supplier.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Supplier; });
+var Supplier = (function () {
+    function Supplier(supplierId, name, city, state) {
+        this.supplierId = supplierId;
+        this.name = name;
+        this.city = city;
+        this.state = state;
+    }
+    return Supplier;
+}());
+
+//# sourceMappingURL=supplier.model.js.map
 
 /***/ }),
 
