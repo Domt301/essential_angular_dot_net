@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SportsStore.Models
 {
@@ -15,5 +16,12 @@ namespace SportsStore.Models
         public DbSet<Supplier> Suppliers { get; set; }
 
         public DbSet<Rating> Ratings { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder){
+            modelBuilder.Entity<Product>().HasMany<Rating>(p => p.Ratings)
+            .WithOne(r => r.Product).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Product>().HasOne<Supplier>(p => p.Supplier)
+            .WithMany(s => s.Products).OnDelete(DeleteBehavior.SetNull);
+        }
     }
 }
