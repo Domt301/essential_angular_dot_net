@@ -1,5 +1,5 @@
-import {NgModule} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { BrowserModule } from '@angular/platform-browser';
 import { CartSummaryComponent } from "./cartSummary.component";
 import { CategoryFilterComponent } from "./categoryFilter.component";
 import { PaginationComponent } from "./pagination.component";
@@ -8,11 +8,10 @@ import { RatingsComponent } from "./ratings.component";
 import { ProductSelectionComponent } from "./productSelection.component";
 
 @NgModule({
-    declarations: [CartSummaryComponent, CategoryFilterComponent, PaginationComponent, 
-        ProductListComponent, RatingsComponent, ProductSelectionComponent],
-    imports:[BrowserModule],
-    exports: [ProductSelectionComponent]
-
+  declarations: [CartSummaryComponent, CategoryFilterComponent,
+    PaginationComponent, ProductListComponent, RatingsComponent,
+    ProductSelectionComponent],
+  imports: [BrowserModule],
+  exports: [ProductSelectionComponent]
 })
-
-export class StoreModule{}
+export class StoreModule { }

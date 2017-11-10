@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "./ClientApp/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>"
+module.exports = "<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -461,7 +461,7 @@ var Supplier = (function () {
 /***/ "./ClientApp/app/store/cartSummary.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h5>Placeholder: Cart Summary</h5>"
+module.exports = "<h5>Placeholder: Cart Summary</h5>\r\n"
 
 /***/ }),
 
@@ -497,7 +497,7 @@ CartSummaryComponent = __decorate([
 /***/ "./ClientApp/app/store/categoryFilter.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"m-1\">\n    <button class=\"btn btn-outline-primary btn-block\" (click)=\"setCurrentCategory(null)\">\n        All Categories\n    </button>\n    <button *ngFor=\"let category of categories\" \n                    class=\"btn btn-outline-primary btn-block\"\n                    [class.active]=\"currentCategory == category\"\n                    (click)=\"setCurrentCategory(category)\">\n                {{category}}\n                </button>\n\n</div>"
+module.exports = "<div class=\"m-1\">\r\n  <button class=\"btn btn-outline-primary btn-block\"\r\n          (click)=\"setCurrentCategory(null)\">\r\n    All Categories\r\n  </button>\r\n  <button *ngFor=\"let category of categories\"\r\n          class=\"btn btn-outline-primary btn-block\"\r\n          [class.active]=\"currentCategory == category\"\r\n          (click)=\"setCurrentCategory(category)\">\r\n    {{category}}\r\n  </button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -559,7 +559,7 @@ var _a;
 /***/ "./ClientApp/app/store/pagination.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"pages.length > 1\" class=\"text-right my-2\">\n    <button *ngFor=\"let page of pages\"\n            class=\"btn btn-outline-primary mx-1\"\n            [class.active]=\"current == page\"\n            (click)=\"changePage(page)\">\n      {{page}}\n    </button>\n  </div>"
+module.exports = "<div *ngIf=\"pages.length > 1\" class=\"text-right my-2\">\r\n  <button *ngFor=\"let page of pages\"\r\n          class=\"btn btn-outline-primary mx-1\"\r\n          [class.active]=\"current == page\"\r\n          (click)=\"changePage(page)\">\r\n    {{page}}\r\n  </button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -627,7 +627,7 @@ var _a;
 /***/ "./ClientApp/app/store/productList.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"products?.length > 0; else nodata\">\n    <div *ngFor=\"let product of products\" class=\"card card-outline-primary m-1\">\n      <div class=\"card-header\">\n        <span class=\"h4\">\n          {{product.name}}\n          <store-ratings [product]=\"product\"></store-ratings>\n        </span>\n        <span class=\"float-right badge badge-pill badge-primary\">\n          {{product.price  | currency:\"USD\":\"symbol\" }}\n        </span>\n      </div>\n      <div class=\"card-block\">\n        <span class=\"card-text p-a-1\">{{product.description}}</span>\n        <button class=\"float-right btn btn-sm btn-success\"\n                (click)=\"addToCart(product)\">\n          Add to Cart\n        </button>\n      </div>\n    </div>\n  </div>\n  \n  <ng-template #nodata>\n    <h4 class=\"m-1\">Waiting for data...</h4>\n  </ng-template>"
+module.exports = "<div *ngIf=\"products?.length > 0; else nodata\">\r\n  <div *ngFor=\"let product of products\" class=\"card card-outline-primary m-1\">\r\n    <div class=\"card-header\">\r\n      <span class=\"h4\">\r\n        {{product.name}}\r\n        <store-ratings [product]=\"product\"></store-ratings>\r\n      </span>\r\n      <span class=\"float-right badge badge-pill badge-primary\">\r\n        {{product.price  | currency:\"USD\":\"symbol\" }}\r\n      </span>\r\n    </div>\r\n    <div class=\"card-block\">\r\n      <span class=\"card-text p-a-1\">{{product.description}}</span>\r\n      <button class=\"float-right btn btn-sm btn-success\"\r\n              (click)=\"addToCart(product)\">\r\n        Add to Cart\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #nodata>\r\n  <h4 class=\"m-1\">Waiting for data...</h4>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -682,7 +682,7 @@ var _a;
 /***/ "./ClientApp/app/store/productSelection.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row bg-dark\">\n  <div class=\"col\">\n    <div class=\"navbar navbar-dark\">\n      <a class=\"navbar-brand text-white\">\n        SPORTS STORE\n      </a>\n    </div>\n  </div>\n  <div class=\"col-3 text-white mr-1 text-right\">\n    <store-cartsummary></store-cartsummary>\n  </div>\n</div>\n<div class=\"row no-gutters\">\n  <div class=\"col-3\">\n    <store-categoryfilter></store-categoryfilter>\n  </div>\n  <div class=\"col\">\n    <store-product-list></store-product-list>\n    <store-pagination></store-pagination>\n  </div>\n</div>"
+module.exports = "<div class=\"row bg-dark\">\r\n  <div class=\"col\">\r\n    <div class=\"navbar navbar-dark\">\r\n      <a class=\"navbar-brand text-white\">\r\n        SPORTS STORE\r\n      </a>\r\n    </div>\r\n  </div>\r\n  <div class=\"col-3 text-white mr-1 text-right\">\r\n    <store-cartsummary></store-cartsummary>\r\n  </div>\r\n</div>\r\n<div class=\"row no-gutters\">\r\n  <div class=\"col-3\">\r\n    <store-categoryfilter></store-categoryfilter>\r\n  </div>\r\n  <div class=\"col\">\r\n    <store-product-list></store-product-list>\r\n    <store-pagination></store-pagination>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -718,7 +718,7 @@ ProductSelectionComponent = __decorate([
 /***/ "./ClientApp/app/store/ratings.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"h6 ml-1\">\n    <i *ngFor=\"let s of stars\"\n        [class]=\"s ? 'fa fa-star' : 'fa fa-star-o'\"\n        [style.color]=\"s ? 'goldenrod' : 'gray'\">\n    </i>\n</span>"
+module.exports = "<span class=\"h6 ml-1\">\r\n  <i *ngFor=\"let s of stars\"\r\n     [class]=\"s ? 'fa fa-star' : 'fa fa-star-o'\"\r\n     [style.color]=\"s ? 'goldenrod' : 'gray'\">\r\n  </i>\r\n</span>\r\n"
 
 /***/ }),
 
@@ -812,8 +812,9 @@ var StoreModule = (function () {
 }());
 StoreModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
-        declarations: [__WEBPACK_IMPORTED_MODULE_2__cartSummary_component__["a" /* CartSummaryComponent */], __WEBPACK_IMPORTED_MODULE_3__categoryFilter_component__["a" /* CategoryFilterComponent */], __WEBPACK_IMPORTED_MODULE_4__pagination_component__["a" /* PaginationComponent */],
-            __WEBPACK_IMPORTED_MODULE_5__productList_component__["a" /* ProductListComponent */], __WEBPACK_IMPORTED_MODULE_6__ratings_component__["a" /* RatingsComponent */], __WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */]],
+        declarations: [__WEBPACK_IMPORTED_MODULE_2__cartSummary_component__["a" /* CartSummaryComponent */], __WEBPACK_IMPORTED_MODULE_3__categoryFilter_component__["a" /* CategoryFilterComponent */],
+            __WEBPACK_IMPORTED_MODULE_4__pagination_component__["a" /* PaginationComponent */], __WEBPACK_IMPORTED_MODULE_5__productList_component__["a" /* ProductListComponent */], __WEBPACK_IMPORTED_MODULE_6__ratings_component__["a" /* RatingsComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */]],
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */]],
         exports: [__WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */]]
     })

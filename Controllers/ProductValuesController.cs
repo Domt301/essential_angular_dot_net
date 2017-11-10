@@ -45,8 +45,8 @@ namespace SportsStore.Controllers {
         }
 
         [HttpGet]
-        public IEnumerable<Product> GetProducts(string category, string search, 
-                bool related = false) {
+        public IActionResult GetProducts(string category, string search,
+                bool related = false, bool metadata = false) {
             IQueryable<Product> query = context.Products;
 
             if (!string.IsNullOrWhiteSpace(category)) {
@@ -70,70 +70,79 @@ namespace SportsStore.Controllers {
                         p.Ratings.ForEach(r => r.Product = null);
                     }
                 });
-                return data;
+                return metadata ? CreateMetadata(data) : Ok(data);
             } else {
-                return query;
+                return metadata ? CreateMetadata(query) : Ok(query);
             }
         }
 
+        private IActionResult CreateMetadata(IEnumerable<Product> products) {
+            return Ok(new {
+                data = products,
+                categories = context.Products.Select(p => p.Category)
+                    .Distinct().OrderBy(c => c)
+            });
+        }
+
+
         [HttpPost]
-        public IActionResult CreateProduct([FromBody] ProductData pdata){
-            if(ModelState.IsValid){
+        public IActionResult CreateProduct([FromBody] ProductData pdata) {
+            if (ModelState.IsValid) {
                 Product p = pdata.Product;
-                if(p.Supplier != null && p.Supplier.SupplierId != 0){
+                if (p.Supplier != null && p.Supplier.SupplierId != 0) {
                     context.Attach(p.Supplier);
                 }
                 context.Add(p);
                 context.SaveChanges();
                 return Ok(p.ProductId);
-            } else{
+            } else {
                 return BadRequest(ModelState);
             }
         }
 
         [HttpPut("{id}")]
-        public IActionResult ReplaceProduct(long id, [FromBody] ProductData pdata){
-            if(ModelState.IsValid){
+        public IActionResult ReplaceProduct(long id, [FromBody] ProductData pdata) {
+            if (ModelState.IsValid) {
                 Product p = pdata.Product;
                 p.ProductId = id;
-                if(p.Supplier != null && p.Supplier.SupplierId != 0){
+                if (p.Supplier != null && p.Supplier.SupplierId != 0) {
                     context.Attach(p.Supplier);
                 }
                 context.Update(p);
                 context.SaveChanges();
                 return Ok();
-            } else{
+            } else {
                 return BadRequest(ModelState);
             }
         }
 
         [HttpPatch("{id}")]
-        public IActionResult UpdateProduct(long id, [FromBody]JsonPatchDocument<ProductData> patch){
-            Product product = context.Products.Include(p => p.Supplier).First(p => p.ProductId == id);
+        public IActionResult UpdateProduct(long id, 
+                [FromBody]JsonPatchDocument<ProductData> patch) {
+
+            Product product = context.Products
+                                .Include(p => p.Supplier)
+                                .First(p => p.ProductId == id);
             ProductData pdata = new ProductData { Product = product };
             patch.ApplyTo(pdata, ModelState);
-			if (ModelState.IsValid && TryValidateModel(pdata))
-			{
 
-				if (product.Supplier != null && product.Supplier.SupplierId != 0)
-				{
-					context.Attach(product.Supplier);
-				}
-				context.SaveChanges();
-				return Ok();
-			}
-			else
-			{
-				return BadRequest(ModelState);
-			}
+            if (ModelState.IsValid && TryValidateModel(pdata)) {
+
+                if (product.Supplier != null && product.Supplier.SupplierId != 0) {
+                    context.Attach(product.Supplier);
+                }
+                context.SaveChanges();
+                return Ok();
+            } else {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpDelete("{id}")]
-        public void DeleteProduct(long id){
-            context.Products.Remove(new Product{ProductId = id});
+        public void DeleteProduct(long id) {
+            context.Products.Remove(new Product { ProductId = id });
             context.SaveChanges();
         }
-
 
     }
 }

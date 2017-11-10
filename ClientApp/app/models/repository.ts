@@ -1,4 +1,4 @@
-﻿import { Product } from "./product.model";
+import { Product } from "./product.model";
 import { Injectable } from "@angular/core";
 import { Http, RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";

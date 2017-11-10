@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 using System.Linq;
 
@@ -12,7 +12,7 @@ namespace SportsStore.Controllers {
 
         public IActionResult Index() {
             ViewBag.Message = "Sports Store App";
-            return View(context.Products.First());
+            return View(context.Products.OrderBy(p => p.ProductId).First());
         }
     }
 }
