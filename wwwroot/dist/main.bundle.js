@@ -180,11 +180,14 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RoutingConfig; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("./node_modules/@angular/router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_productSelection_component__ = __webpack_require__("./ClientApp/app/store/productSelection.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_cartDetail_component__ = __webpack_require__("./ClientApp/app/store/cartDetail.component.ts");
 
 //import { ProductTableComponent } from "./structure/productTable.component"
 //import { ProductDetailComponent } from "./structure/productDetail.component";
 
+
 var routes = [
+    { path: "cart", component: __WEBPACK_IMPORTED_MODULE_2__store_cartDetail_component__["a" /* CartDetailComponent */] },
     { path: "store", component: __WEBPACK_IMPORTED_MODULE_1__store_productSelection_component__["a" /* ProductSelectionComponent */] },
     { path: "", component: __WEBPACK_IMPORTED_MODULE_1__store_productSelection_component__["a" /* ProductSelectionComponent */] }
 ];
@@ -548,10 +551,53 @@ var Supplier = (function () {
 
 /***/ }),
 
+/***/ "./ClientApp/app/store/cartDetail.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"navbar bg-dark\">\n    <a class=\"navbar-brand text-white\">SPORTS STORE</a>\n</div>\n\n<div class=\"m-1\">\n    <h2 class=\"text-center\">Your Cart</h2>\n    <table class=\"table table-bordered table-striped p-1\">\n        <thead>\n            <tr>\n                <th>Quantity</th>\n                <th>Product</th>\n                <th class=\"text-right\">Price</th>\n                <th class=\"text-right\">Subtotal</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngIf=\"cart.selections.length == 0\">\n                <td colspan=\"4\" class=\"text-xs-center\">\n                    Your cart is empty\n                </td>\n            </tr>\n            <tr *ngFor=\"let sel of cart.selections\">\n                <td>\n                    <input type=\"number\" class=\"form-control-sm\"\n                        style=\"width:5em\" [(ngModel)]=\"sel.quantity\" />\n                </td>\n                <td>{{sel.name}}</td>\n                <td class=\"text-right\">\n                    {{sel.price | currency:\"USD\":true:\"2.2-2\"}}\n                </td>\n                <td class=\"text-right\">\n                    {{(sel.quantity * sel.price) | currency:\"USD\":true:\"2.2-2\" }}\n                </td>\n                <td class=\"text-center\">\n                    <button class=\"btn btn-sm btn-danger\"\n                            (click)=\"cart.updateQuantity(sel.productId, 0)\">\n                        Remove\n                    </button>\n                </td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <td colspan=\"3\" class=\"text-right\">Total:</td>\n                <td class=\"text-right\">\n                    {{cart.totalPrice | currency:\"USD\":true:\"2.2-2\"}}\n                </td>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"text-center\">\n    <button class=\"btn btn-primary\" routerLink=\"/store\">Continue Shopping</button>\n    <button class=\"btn btn-secondary\" routerLink=\"/checkout\"\n            [disabled]=\"cart.selections.length == 0\">\n        Checkout\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/cartDetail.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartDetailComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_cart_model__ = __webpack_require__("./ClientApp/app/models/cart.model.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CartDetailComponent = (function () {
+    function CartDetailComponent(cart) {
+        this.cart = cart;
+    }
+    return CartDetailComponent;
+}());
+CartDetailComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        template: __webpack_require__("./ClientApp/app/store/cartDetail.component.html")
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__models_cart_model__["a" /* Cart */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__models_cart_model__["a" /* Cart */]) === "function" && _a || Object])
+], CartDetailComponent);
+
+var _a;
+//# sourceMappingURL=cartDetail.component.js.map
+
+/***/ }),
+
 /***/ "./ClientApp/app/store/cartSummary.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h5>Placeholder: Cart Summary</h5>\r\n"
+module.exports = "<div class=\"text-right p-1\">\r\n    <small *ngIf=\"itemCount > 0; else empty \"> \r\n        ({{ itemCount }} item(s) {{ totalPrice | currency:\"USD\":true }})\r\n    </small>\r\n    <button class=\"btn btn-sm ml-1\"\r\n            [disabled]=\"itemCount == 0\"\r\n            routerLink =\"/cart\">\r\n        <i class=\"fa fa-shopping-cart\"></i>\r\n        </button>\r\n</div>\r\n\r\n<ng-template #empty>\r\n    <small class=\"text-muted\">\r\n        (cart is empty)\r\n    </small>\r\n</ng-template>"
 
 /***/ }),
 
@@ -909,12 +955,18 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__productList_component__ = __webpack_require__("./ClientApp/app/store/productList.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ratings_component__ = __webpack_require__("./ClientApp/app/store/ratings.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__productSelection_component__ = __webpack_require__("./ClientApp/app/store/productSelection.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__cartDetail_component__ = __webpack_require__("./ClientApp/app/store/cartDetail.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_router__ = __webpack_require__("./node_modules/@angular/router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/@angular/forms.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -932,8 +984,8 @@ StoreModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
         declarations: [__WEBPACK_IMPORTED_MODULE_2__cartSummary_component__["a" /* CartSummaryComponent */], __WEBPACK_IMPORTED_MODULE_3__categoryFilter_component__["a" /* CategoryFilterComponent */],
             __WEBPACK_IMPORTED_MODULE_4__pagination_component__["a" /* PaginationComponent */], __WEBPACK_IMPORTED_MODULE_5__productList_component__["a" /* ProductListComponent */], __WEBPACK_IMPORTED_MODULE_6__ratings_component__["a" /* RatingsComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */]],
-        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */]],
+            __WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */], __WEBPACK_IMPORTED_MODULE_8__cartDetail_component__["a" /* CartDetailComponent */]],
+        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_9__angular_router__["a" /* RouterModule */], __WEBPACK_IMPORTED_MODULE_10__angular_forms__["a" /* FormsModule */]],
         exports: [__WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */]]
     })
 ], StoreModule);
