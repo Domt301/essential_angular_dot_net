@@ -17,6 +17,8 @@ namespace SportsStore.Models
 
         public DbSet<Rating> Ratings { get; set; }
 
+        public DbSet<Order> Orders {get; set;}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<Product>().HasMany<Rating>(p => p.Ratings)
             .WithOne(r => r.Product).OnDelete(DeleteBehavior.Cascade);
