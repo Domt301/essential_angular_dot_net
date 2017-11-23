@@ -193,6 +193,94 @@ var RoutingConfig = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterM
 
 /***/ }),
 
+/***/ "./ClientApp/app/models/cart.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Cart; });
+/* unused harmony export ProductSelection */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var Cart = (function () {
+    function Cart() {
+        this.selections = [];
+        this.itemCount = 0;
+        this.totalPrice = 0;
+    }
+    Cart.prototype.addProduct = function (product) {
+        var selection = this.selections
+            .find(function (ps) { return ps.productId == product.productId; });
+        if (selection) {
+            selection.quantity++;
+        }
+        else {
+            this.selections.push(new ProductSelection(this, product.productId, product.name, product.price, 1));
+        }
+        this.update();
+    };
+    Cart.prototype.updateQuantity = function (productId, quantity) {
+        if (quantity > 0) {
+            var selection = this.selections.find(function (ps) { return ps.productId == productId; });
+            if (selection) {
+                selection.quantity = quantity;
+            }
+        }
+        else {
+            var index = this.selections.findIndex(function (ps) { return ps.productId == productId; });
+            if (index != -1) {
+                this.selections.splice(index, 1);
+            }
+            this.update();
+        }
+    };
+    Cart.prototype.clear = function () {
+        this.selections = [];
+        this.update();
+    };
+    Cart.prototype.update = function () {
+        this.itemCount = this.selections.map(function (ps) { return ps.quantity; })
+            .reduce(function (prev, curr) { return prev + curr; }, 0);
+        this.totalPrice = this.selections.map(function (ps) { return ps.price * ps.quantity; })
+            .reduce(function (prev, curr) { return prev + curr; }, 0);
+    };
+    return Cart;
+}());
+Cart = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])()
+], Cart);
+
+var ProductSelection = (function () {
+    function ProductSelection(cart, productId, name, price, quantityValue) {
+        this.cart = cart;
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.quantityValue = quantityValue;
+    }
+    Object.defineProperty(ProductSelection.prototype, "quantity", {
+        get: function () {
+            return this.quantityValue;
+        },
+        set: function (newQuantity) {
+            this.quantityValue = newQuantity;
+            this.cart.update();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return ProductSelection;
+}());
+
+//# sourceMappingURL=cart.model.js.map
+
+/***/ }),
+
 /***/ "./ClientApp/app/models/configClasses.repository.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -229,12 +317,14 @@ var Pagination = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModelModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cart_model__ = __webpack_require__("./ClientApp/app/models/cart.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 var ModelModule = (function () {
@@ -244,7 +334,7 @@ var ModelModule = (function () {
 }());
 ModelModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
-        providers: [__WEBPACK_IMPORTED_MODULE_1__repository__["a" /* Repository */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_1__repository__["a" /* Repository */], __WEBPACK_IMPORTED_MODULE_2__cart_model__["a" /* Cart */]]
     })
 ], ModelModule);
 
@@ -471,25 +561,47 @@ module.exports = "<h5>Placeholder: Cart Summary</h5>\r\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartSummaryComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_cart_model__ = __webpack_require__("./ClientApp/app/models/cart.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var CartSummaryComponent = (function () {
-    function CartSummaryComponent() {
+    function CartSummaryComponent(cart) {
+        this.cart = cart;
     }
+    Object.defineProperty(CartSummaryComponent.prototype, "itemCount", {
+        get: function () {
+            return this.cart.itemCount;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CartSummaryComponent.prototype, "totalPrice", {
+        get: function () {
+            return this.cart.totalPrice;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return CartSummaryComponent;
 }());
 CartSummaryComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: "store-cartsummary",
         template: __webpack_require__("./ClientApp/app/store/cartSummary.component.html")
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__models_cart_model__["a" /* Cart */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__models_cart_model__["a" /* Cart */]) === "function" && _a || Object])
 ], CartSummaryComponent);
 
+var _a;
 //# sourceMappingURL=cartSummary.component.js.map
 
 /***/ }),
@@ -638,6 +750,7 @@ module.exports = "<div *ngIf=\"products?.length > 0; else nodata\">\r\n  <div *n
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductListComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_cart_model__ = __webpack_require__("./ClientApp/app/models/cart.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -649,9 +762,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var ProductListComponent = (function () {
-    function ProductListComponent(repo) {
+    function ProductListComponent(repo, cart) {
         this.repo = repo;
+        this.cart = cart;
     }
     Object.defineProperty(ProductListComponent.prototype, "products", {
         get: function () {
@@ -664,6 +779,9 @@ var ProductListComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    ProductListComponent.prototype.addToCart = function (product) {
+        this.cart.addProduct(product);
+    };
     return ProductListComponent;
 }());
 ProductListComponent = __decorate([
@@ -671,10 +789,10 @@ ProductListComponent = __decorate([
         selector: "store-product-list",
         template: __webpack_require__("./ClientApp/app/store/productList.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__models_cart_model__["a" /* Cart */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__models_cart_model__["a" /* Cart */]) === "function" && _b || Object])
 ], ProductListComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=productList.component.js.map
 
 /***/ }),
