@@ -20,6 +20,16 @@ namespace SportsStore.Controllers{
             HttpContext.Session.SetString("cart", jsonData);
         }
 
+        [HttpGet("checkout")]
+        public IActionResult GetCheckout(){
+            return Ok(HttpContext.Session.GetString("checkout"));
+        }
+
+        [HttpPost("checkout")]
+        public void StoreCheckout([FromBody] CheckoutState data){
+            HttpContext.Session.SetString("checkout", JsonConvert.SerializeObject(data));
+        }
+
     }
     
 }
